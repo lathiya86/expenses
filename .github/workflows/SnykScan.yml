@@ -1,0 +1,21 @@
+name: Pre-Deployment Check
+
+on: 
+  pull_request:
+    types: [opened]
+
+  push:
+    branches: master
+    paths: 
+      - ".github/workflows/SnykScan.yml"
+    
+jobs:
+    security:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@master
+    
+        - name: Run Snyk to check for vulnerabilities
+          uses: snyk/actions/dotnet@master
+          env:
+             SNYK_TOKEN: eb0f42c4-3fa2-4c51-9141-f43cc613d0c6
